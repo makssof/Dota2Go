@@ -1,11 +1,11 @@
-package main
+package Dota2Catcher
 
 import (
 	"github.com/go-vgo/robotgo"
 	"time"
 )
 
-func main() {
+func CatchReadyButton() {
 	imagePart := robotgo.OpenBitmap("scheme")
 
 	for true {
