@@ -15,11 +15,11 @@ $ make build
 
 It will compile into `bin/` folder.
 
->Please make sure that you have `scheme` file near application. The `make` command makes it for you.
-
 ## TODO
 
- - Add tray icon
+- [x] Add tray icon
+- [x] Reduce binary size
+- [ ] Any wishes?..
 
 License
 ----
