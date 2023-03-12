@@ -2,15 +2,17 @@ package Dota2Catcher
 
 import (
 	"fmt"
-	"github.com/getlantern/systray"
-	"github.com/go-vgo/robotgo"
 	"io/ioutil"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/getlantern/systray"
+	"github.com/go-vgo/robotgo"
 )
 
 var SchemeFile = os.TempDir() + "/scheme_" + strconv.FormatInt(time.Now().Unix(), 10)
+var SchemeFile2 = os.TempDir() + "/scheme2_" + strconv.FormatInt(time.Now().Unix(), 10)
 
 func CatchReadyButton(closeCh chan bool) {
 	scheme, err := FSByte(false, "/assets/scheme")
@@ -24,6 +26,17 @@ func CatchReadyButton(closeCh chan bool) {
 		return
 	}
 	imagePart := robotgo.OpenBitmap(SchemeFile)
+	scheme2, err := FSByte(false, "/assets/scheme2")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = ioutil.WriteFile(SchemeFile2, scheme2, 0777)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	imagePart2 := robotgo.OpenBitmap(SchemeFile2)
 	shift := 1
 
 handle:
@@ -34,8 +47,9 @@ handle:
 		default:
 			screen := robotgo.CaptureScreen()
 			x, y := robotgo.FindBitmap(imagePart, screen)
+			x2, y2 := robotgo.FindBitmap(imagePart2, screen)
 
-			if x > -1 && y > -1 {
+			if (x > -1 && y > -1) || (x2 > -1 && y2 > -1) {
 				shift *= -1 // Trigger :hover of the Ready Button
 				w, h := robotgo.GetScreenSize()
 				robotgo.MoveClick(w/2, h/2+shift)
