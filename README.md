@@ -2,6 +2,8 @@
 
 Auto-Accepter for Dota2 Games
 
+### [DOWNLOAD EXE](https://github.com/makssof/Dota2Go/releases/download/v1.3/Dota2Go.exe)
+
 ## Requirements
 
   - Go
